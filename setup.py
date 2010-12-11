@@ -42,7 +42,7 @@ setup(
             'yuiprepare = js.yui.prepare:main',
             ],
         'fanstatic.libraries': [
-            'yui = js.yui:yui',
+            'yui = js.yui:library',
             ],
         },
     )

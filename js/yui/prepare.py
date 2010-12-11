@@ -1,11 +1,10 @@
 import os
-import sys
 import shutil
 import tempfile
 import urllib2
 import json
 
-from fanstatic import Library, ResourceInclusion, generate_code
+from fanstatic import Library, Resource, generate_code
 
 YUI_VERSION = '2.8.2'
 # argh, download file version isn't actual version
@@ -36,7 +35,7 @@ def register_modes(inclusion):
     new_name = rest + '-min' + ext
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
-        inclusion.modes['minified'] = ResourceInclusion(inclusion.library, new_name)
+        inclusion.modes['minified'] = Resource(inclusion.library, new_name)
     elif inclusion.supersedes:
         inclusion.modes['minified'] = inclusion
 
@@ -44,7 +43,7 @@ def register_modes(inclusion):
     new_name = rest + '-debug' + ext
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
-        inclusion.modes['debug'] = ResourceInclusion(inclusion.library, new_name)
+        inclusion.modes['debug'] = Resource(inclusion.library, new_name)
     elif inclusion.supersedes:
         inclusion.modes['debug'] = inclusion
 
@@ -54,8 +53,7 @@ def convert_to_inclusions(d):
     inclusion_map = {}
     for name, value in d.items():
         name = normalize_name(name)
-        inclusion_map[name] = ResourceInclusion(yui,
-                                                deminize(value['path']))
+        inclusion_map[name] = Resource(yui, deminize(value['path']))
 
     # fix up dependency structure
     # XXX note that this doesn't establish proper rollup backreferences
@@ -80,7 +78,7 @@ def convert_to_inclusions(d):
         register_modes(inclusion)
 
     # add the SAM skin
-    sam = ResourceInclusion(yui, 'assets/skins/sam/skin.css')
+    sam = Resource(yui, 'assets/skins/sam/skin.css')
     inclusion_map['sam'] = sam
 
     # now generate code

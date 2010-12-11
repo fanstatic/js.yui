@@ -6,8 +6,8 @@ Here are some basic tests for js.yui.
 Let's check the YUI structure by picking out a resource in it::
 
   >>> import js.yui
-  >>> from fanstatic import init_current_needed_inclusions
-  >>> needed = init_current_needed_inclusions(base_url='http://localhost')
+  >>> from fanstatic import init_needed
+  >>> needed = init_needed(base_url='http://localhost')
   >>> needed.need(js.yui.fonts)
   >>> print needed.render()
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/fonts/fonts.css" />
@@ -15,7 +15,7 @@ Let's check the YUI structure by picking out a resource in it::
 Let's try a resource that has a dependency on fonts, namely
 ``grids``::
 
-  >>> needed = init_current_needed_inclusions(base_url='http://localhost')
+  >>> needed = init_needed(base_url='http://localhost')
   >>> needed.need(js.yui.grids)
   >>> print needed.render()
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/fonts/fonts.css" />
@@ -23,7 +23,7 @@ Let's try a resource that has a dependency on fonts, namely
 
 Let's need two resources at the same time::
 
-  >>> needed = init_current_needed_inclusions(base_url='http://localhost')
+  >>> needed = init_needed(base_url='http://localhost')
   >>> needed.need(js.yui.grids)
   >>> needed.need(js.yui.reset)
   >>> print needed.render()
@@ -33,7 +33,9 @@ Let's need two resources at the same time::
 
 Let's get the same, minified::
 
-  >>> needed._mode = 'minified'
+  >>> needed = init_needed(base_url='http://localhost', mode='minified')
+  >>> needed.need(js.yui.grids)
+  >>> needed.need(js.yui.reset)
   >>> print needed.render()
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/fonts/fonts-min.css" />
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/grids/grids-min.css" />
@@ -43,7 +45,7 @@ Now let's try to see consolidation: we include grids and reset at the
 same time. Since this time we enable rolling up, we expect to see the
 rollup ``reset-fonts-grids``::
 
-  >>> needed = init_current_needed_inclusions(
+  >>> needed = init_needed(
   ...     base_url='http://localhost', rollup=True)
   >>> needed.need(js.yui.grids)
   >>> needed.need(js.yui.reset)
@@ -53,7 +55,7 @@ rollup ``reset-fonts-grids``::
 Requesting minification has no effect on rollups, as the original
 rollup is already minified::
 
-  >>> needed = init_current_needed_inclusions(
+  >>> needed = init_needed(
   ...     base_url='http://localhost', rollup=True, mode='minified')
   >>> needed.need(js.yui.grids)
   >>> needed.need(js.yui.reset)
