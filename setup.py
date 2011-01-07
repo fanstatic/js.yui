@@ -1,10 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-YUI_VERSION = '2.8.2'
 version = '2.8.2'
-# Name version after YUI_VERSION + .suffix
-
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
