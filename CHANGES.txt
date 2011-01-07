@@ -1,7 +1,7 @@
 CHANGES
 *******
 
-2.8.2 (unreleased)
+2.8.2 (2011-01-07)
 ==================
 
 - Rewrote `hurry.yui`_ to use `fanstatic`_ instead of `hurry.resource`_.
