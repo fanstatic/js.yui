@@ -31,9 +31,6 @@ setup(
         'setuptools',
         'fanstatic',
         ],
-    extras_require = dict(
-        test=['pytest >= 2.0'],
-        ),
     entry_points={
         'console_scripts': [
             'yuiprepare = js.yui.prepare:main',
