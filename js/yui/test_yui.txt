@@ -33,7 +33,7 @@ Let's need two resources at the same time::
 
 Let's get the same, minified::
 
-  >>> needed = init_needed(base_url='http://localhost', mode='minified')
+  >>> needed = init_needed(base_url='http://localhost', minified=True)
   >>> needed.need(js.yui.grids)
   >>> needed.need(js.yui.reset)
   >>> print needed.render()
@@ -56,7 +56,7 @@ Requesting minification has no effect on rollups, as the original
 rollup is already minified::
 
   >>> needed = init_needed(
-  ...     base_url='http://localhost', rollup=True, mode='minified')
+  ...     base_url='http://localhost', rollup=True, minified=True)
   >>> needed.need(js.yui.grids)
   >>> needed.need(js.yui.reset)
   >>> print needed.render()
