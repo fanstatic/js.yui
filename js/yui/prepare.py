@@ -24,6 +24,11 @@ def deminize(path):
 def normalize_name(n):
     return str(n.replace('-', '_'))
 
+def cdnify(path):
+    return {
+       'google': '//ajax.googleapis.com/ajax/libs/yui/%s/build/%s' % (YUI_VERSION, path),
+       'yahoo': '//yui.yahooapis.com/%s/build/%s' % (YUI_VERSION, path)
+    }
 
 def register_modes(inclusion):
     # Try to find the -min and -debug variants.
@@ -35,7 +40,7 @@ def register_modes(inclusion):
     new_name = rest + '-min' + ext
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
-        inclusion.modes['minified'] = Resource(inclusion.library, new_name)
+        inclusion.modes['minified'] = Resource(inclusion.library, new_name, depends=inclusion.depends, cdns=cdnify(new_name))
     elif inclusion.supersedes:
         inclusion.modes['minified'] = inclusion
 
@@ -43,7 +48,7 @@ def register_modes(inclusion):
     new_name = rest + '-debug' + ext
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
-        inclusion.modes['debug'] = Resource(inclusion.library, new_name)
+        inclusion.modes['debug'] = Resource(inclusion.library, new_name, depends=inclusion.depends, cdns=cdnify(new_name))
     elif inclusion.supersedes:
         inclusion.modes['debug'] = inclusion
 
@@ -53,7 +58,8 @@ def convert_to_inclusions(d):
     inclusion_map = {}
     for name, value in d.items():
         name = normalize_name(name)
-        inclusion_map[name] = Resource(yui, deminize(value['path']))
+        deminified = deminize(value['path'])
+        inclusion_map[name] = Resource(yui, deminified, cdns=cdnify(deminified))
 
     # fix up dependency structure
     # XXX note that this doesn't establish proper rollup backreferences
