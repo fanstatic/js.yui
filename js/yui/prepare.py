@@ -26,8 +26,9 @@ def normalize_name(n):
 
 def cdnify(path):
     return {
-       'google': '//ajax.googleapis.com/ajax/libs/yui/%s/build/%s' % (YUI_VERSION, path),
-       'yahoo': '//yui.yahooapis.com/%s/build/%s' % (YUI_VERSION, path)
+       ('google', 'http'): 'http://ajax.googleapis.com/ajax/libs/yui/%s/build/%s' % (YUI_VERSION, path),
+       ('google', 'https'): 'https://ajax.googleapis.com/ajax/libs/yui/%s/build/%s' % (YUI_VERSION, path),
+       ('yahoo', 'http'): 'http://yui.yahooapis.com/%s/build/%s' % (YUI_VERSION, path)
     }
 
 def register_modes(inclusion):
