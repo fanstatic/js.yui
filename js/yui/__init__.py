@@ -1,5 +1,7 @@
 from fanstatic import Library, Resource
 
+# This code is auto-generated and not PEP8 compliant
+
 yui = Library('yui', 'resources')
 
 fonts = Resource(yui, 'fonts/fonts.css', cdns={('yahoo', 'http'): 'http://yui.yahooapis.com/2.8.2/build/fonts/fonts.css', ('google', 'http'): 'http://ajax.googleapis.com/ajax/libs/yui/2.8.2/build/fonts/fonts.css', ('google', 'https'): 'https://ajax.googleapis.com/ajax/libs/yui/2.8.2/build/fonts/fonts.css'}, minified=Resource(yui, 'fonts/fonts-min.css', cdns={('yahoo', 'http'): 'http://yui.yahooapis.com/2.8.2/build/fonts/fonts-min.css', ('google', 'http'): 'http://ajax.googleapis.com/ajax/libs/yui/2.8.2/build/fonts/fonts-min.css', ('google', 'https'): 'https://ajax.googleapis.com/ajax/libs/yui/2.8.2/build/fonts/fonts-min.css'}))
