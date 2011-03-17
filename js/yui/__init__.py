@@ -7,7 +7,7 @@ grids = Resource(library, 'grids/grids.css', depends=[fonts], minified='grids/gr
 reset = Resource(library, 'reset/reset.css', minified='reset/reset-min.css')
 reset_fonts_grids = Resource(library, 'reset-fonts-grids/reset-fonts-grids.css', supersedes=[reset, fonts, grids], debug='reset-fonts-grids/reset-fonts-grids.css', minified='reset-fonts-grids/reset-fonts-grids.css')
 sam = Resource(library, 'assets/skins/sam/skin.css')
-base = Resource(library, 'base/base.css', minified='base/base-min.css')
+base = Resource(library, 'base/base.css', depends=[reset], minified='base/base-min.css')
 reset_fonts = Resource(library, 'reset-fonts/reset-fonts.css', supersedes=[reset, fonts], debug='reset-fonts/reset-fonts.css', minified='reset-fonts/reset-fonts.css')
 yahoo = Resource(library, 'yahoo/yahoo.js', debug='yahoo/yahoo-debug.js', minified='yahoo/yahoo-min.js')
 dom = Resource(library, 'dom/dom.js', depends=[yahoo], debug='dom/dom-debug.js', minified='dom/dom-min.js')
