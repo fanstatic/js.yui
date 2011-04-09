@@ -29,14 +29,14 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'fanstatic >= 0.10',
+        'fanstatic > 0.10.2',
         ],
     entry_points={
         'console_scripts': [
             'yuiprepare = js.yui.prepare:main',
             ],
         'fanstatic.libraries': [
-            'yui = js.yui:library',
+            'yui = js.yui:yui',
             ],
         },
     )

@@ -27,8 +27,6 @@ def normalize_name(n):
 
 def register_modes(inclusion):
     # Try to find the -min and -debug variants.
-    # If they are not available and the inclusion defines a supersede
-    # situation, register the inclusion for these modes.
 
     rest, ext = os.path.splitext(inclusion.relpath)
     # minified
@@ -36,16 +34,12 @@ def register_modes(inclusion):
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
         inclusion.modes['minified'] = Resource(inclusion.library, new_name)
-    elif inclusion.supersedes:
-        inclusion.modes['minified'] = inclusion
 
     # debug
     new_name = rest + '-debug' + ext
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
         inclusion.modes['debug'] = Resource(inclusion.library, new_name)
-    elif inclusion.supersedes:
-        inclusion.modes['debug'] = inclusion
 
 
 def convert_to_inclusions(d):
@@ -56,30 +50,21 @@ def convert_to_inclusions(d):
         inclusion_map[name] = Resource(yui, deminize(value['path']))
 
     # fix up dependency structure
-    # XXX note that this doesn't establish proper rollup backreferences
-    # but this doesn't matter as we're just going to generate the
-    # code that does...
     for name, value in d.items():
         name = normalize_name(name)
         inclusion = inclusion_map[name]
 
         for require in value.get('requires', []):
             require = normalize_name(require)
-            inclusion.depends.append(inclusion_map[require])
-
-        for supersede_name in value.get('supersedes', []):
-            orig_supersede_name = supersede_name
-            supersede_name = normalize_name(supersede_name)
-            r = inclusion_map[supersede_name]
-            # only supersede things that don't supersede themselves
-            if not d[orig_supersede_name].get('supersedes'):
-                inclusion.supersedes.append(r)
+            inclusion.depends.add(inclusion_map[require])
 
         register_modes(inclusion)
 
     # add the SAM skin
     sam = Resource(yui, 'assets/skins/sam/skin.css')
     inclusion_map['sam'] = sam
+    # base depends on reset.
+    inclusion_map['base'].depends.add(inclusion_map['reset'])
 
     # now generate code
     return generate_code(**inclusion_map)
