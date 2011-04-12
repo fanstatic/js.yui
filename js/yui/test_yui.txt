@@ -28,8 +28,8 @@ Let's need two resources at the same time::
   >>> needed.need(js.yui.reset)
   >>> print needed.render()
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/fonts/fonts.css" />
-  <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/grids/grids.css" />
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/reset/reset.css" />
+  <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/grids/grids.css" />
 
 Let's get the same, minified::
 
@@ -38,8 +38,8 @@ Let's get the same, minified::
   >>> needed.need(js.yui.reset)
   >>> print needed.render()
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/fonts/fonts-min.css" />
-  <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/grids/grids-min.css" />
   <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/reset/reset-min.css" />
+  <link rel="stylesheet" type="text/css" href="http://localhost/fanstatic/yui/grids/grids-min.css" />
 
 Now let's try to see consolidation: we include grids and reset at the
 same time. Since this time we enable rolling up, we expect to see the
