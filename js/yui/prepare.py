@@ -27,6 +27,8 @@ def normalize_name(n):
 
 def register_modes(inclusion):
     # Try to find the -min and -debug variants.
+    # If they are not available and the inclusion defines a supersede
+    # situation, register the inclusion for these modes.
 
     rest, ext = os.path.splitext(inclusion.relpath)
     # minified
