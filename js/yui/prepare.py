@@ -36,16 +36,12 @@ def register_modes(inclusion):
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
         inclusion.modes['minified'] = Resource(inclusion.library, new_name)
-    elif inclusion.supersedes:
-        inclusion.modes['minified'] = inclusion
 
     # debug
     new_name = rest + '-debug' + ext
     if os.path.exists(os.path.join(inclusion.library.path, new_name)):
         print inclusion.library, new_name
         inclusion.modes['debug'] = Resource(inclusion.library, new_name)
-    elif inclusion.supersedes:
-        inclusion.modes['debug'] = inclusion
 
 
 def convert_to_inclusions(d):
@@ -65,7 +61,7 @@ def convert_to_inclusions(d):
 
         for require in value.get('requires', []):
             require = normalize_name(require)
-            inclusion.depends.append(inclusion_map[require])
+            inclusion.depends.add(inclusion_map[require])
 
         for supersede_name in value.get('supersedes', []):
             orig_supersede_name = supersede_name
@@ -80,6 +76,8 @@ def convert_to_inclusions(d):
     # add the SAM skin
     sam = Resource(yui, 'assets/skins/sam/skin.css')
     inclusion_map['sam'] = sam
+    # reset depends on base
+    inclusion_map['base'].depends.add(inclusion_map['reset'])
 
     # now generate code
     return generate_code(**inclusion_map)
