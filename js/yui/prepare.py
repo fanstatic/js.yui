@@ -60,6 +60,14 @@ def convert_to_inclusions(d):
             require = normalize_name(require)
             inclusion.depends.add(inclusion_map[require])
 
+        for supersede_name in value.get('supersedes', []):
+            orig_supersede_name = supersede_name
+            supersede_name = normalize_name(supersede_name)
+            r = inclusion_map[supersede_name]
+            # only supersede things that don't supersede themselves
+            if not d[orig_supersede_name].get('supersedes'):
+                inclusion.supersedes.append(r)
+
         register_modes(inclusion)
 
     # add the SAM skin

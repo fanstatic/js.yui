@@ -23,10 +23,10 @@ event_simulate = Resource(yui, 'event-simulate/event-simulate.js', depends=[even
 cookie = Resource(yui, 'cookie/cookie.js', depends=[yahoo], debug='cookie/cookie-debug.js', minified='cookie/cookie-min.js')
 storage = Resource(yui, 'storage/storage.js', depends=[yahoo, event, cookie], debug='storage/storage-debug.js', minified='storage/storage-min.js')
 json = Resource(yui, 'json/json.js', depends=[yahoo], debug='json/json-debug.js', minified='json/json-min.js')
+datasource = Resource(yui, 'datasource/datasource.js', depends=[event], debug='datasource/datasource-debug.js', minified='datasource/datasource-min.js')
 swfdetect = Resource(yui, 'swfdetect/swfdetect.js', depends=[yahoo], debug='swfdetect/swfdetect-debug.js', minified='swfdetect/swfdetect-min.js')
 swf = Resource(yui, 'swf/swf.js', depends=[element], supersedes=[swfdetect], debug='swf/swf-debug.js', minified='swf/swf-min.js')
-datasource = Resource(yui, 'datasource/datasource.js', depends=[event], debug='datasource/datasource-debug.js', minified='datasource/datasource-min.js')
-charts = Resource(yui, 'charts/charts.js', depends=[element, json, swf, datasource], debug='charts/charts-debug.js', minified='charts/charts-min.js')
+charts = Resource(yui, 'charts/charts.js', depends=[element, json, datasource, swf], debug='charts/charts-debug.js', minified='charts/charts-min.js')
 get = Resource(yui, 'get/get.js', depends=[yahoo], debug='get/get-debug.js', minified='get/get-min.js')
 yuiloader_dom_event = Resource(yui, 'yuiloader-dom-event/yuiloader-dom-event.js', supersedes=[yahoo, dom, event, get])
 animation = Resource(yui, 'animation/animation.js', depends=[dom, event], debug='animation/animation-debug.js', minified='animation/animation-min.js')
@@ -64,4 +64,4 @@ connection = Resource(yui, 'connection/connection.js', depends=[event], supersed
 yahoo_dom_event = Resource(yui, 'yahoo-dom-event/yahoo-dom-event.js', supersedes=[yahoo, event, dom])
 imageloader = Resource(yui, 'imageloader/imageloader.js', depends=[event, dom], debug='imageloader/imageloader-debug.js', minified='imageloader/imageloader-min.js')
 treeview = Resource(yui, 'treeview/treeview.js', depends=[event, dom], debug='treeview/treeview-debug.js', minified='treeview/treeview-min.js')
-history = Resource(yui, 'history/history.js', depends=[event], debug='history/history-debug.js', minified='history/history-min.j
+history = Resource(yui, 'history/history.js', depends=[event], debug='history/history-debug.js', minified='history/history-min.js')
