@@ -29,7 +29,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'fanstatic >= 0.11',
+        'fanstatic >= 0.11.1',
         ],
     entry_points={
         'console_scripts': [
